@@ -1,5 +1,6 @@
 package com.example.english_cards;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +36,7 @@ public class PractFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PractFragment.
+     * @return A new instance of fragment AddFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static PractFragment newInstance(String param1, String param2) {
@@ -53,12 +55,14 @@ public class PractFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pract, container, false);
+        return inflater.inflate(R.layout.practcing, container, false);
     }
+
 }

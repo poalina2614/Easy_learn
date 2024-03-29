@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PractFragment">
+
+    <Button
+        android:id="@+id/study_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Учить слова"
+        android:onClick="to_study"/>
+
+    <Button
+        android:id="@+id/repeat_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="повторить слова"
+        android:onClick="to_learn"/>
+</LinearLayout>
