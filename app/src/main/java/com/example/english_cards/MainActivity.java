@@ -5,26 +5,30 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.ListActivity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.english_cards.databinding.ActivityMainBinding;
+import com.google.gson.Gson;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
-    BDHelper bdHelper;
+    public int num_frag = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new PractFragment());
+        num_frag = getIntent().getIntExtra("num", 1);
+        if (num_frag == 1) replaceFragment(new PractFragment());
+        else if (num_frag == 2) replaceFragment(new CatalogFrag());
+        else replaceFragment(new SettFragment());
 
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -34,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.catalog:
                     replaceFragment(new CatalogFrag());
-//                    MyAdapter adapter = new MyAdapter(this, MakeCategory());
-//                    ListView lv = findViewById(R.id.cat_list);
-//                    lv.setAdapter(adapter);
 
                     break;
                 case R.id.settings:
@@ -49,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-//        bdHelper = new BDHelper(this);
-//        SQLiteDatabase database = bdHelper.getWritableDatabase();
     }
 
 
@@ -64,18 +63,11 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, Repeating.class);
         startActivity(i);
     }
-
-    category[] MakeCategory ()  {
-        category[] arr = new category[12];
-
-        String[] catArr = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
-        for (int i = 0; i < arr.length; i++) {
-            category cate = new category();
-            cate.name = catArr[i];
-            arr[i] = cate;
-        }
-        return arr;
+    public void to_add(View view) {
+        Intent i = new Intent(MainActivity.this, AddActivity.class);
+        startActivity(i);
     }
+
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();

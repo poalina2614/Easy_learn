@@ -1,0 +1,8 @@
+{"category":{
+  "food": {"apple" : "яблоко", "blueberry" : "голубика"},
+  "nature": {"tree" : "дерево", "polution" :  "загрязнение"},
+  "animals": {"fox": "лиса", "cat": "кот"},
+  "home": {"kitchen": "кухня", "living room":  "гостинная", "bed": "кровать"},
+  "body": {"face":  "лицо", "arm":  "рука", "foot": "нога"},
+  "family": {"mother": "мама", "father": "папа","daughter": "дочь"}
+}}

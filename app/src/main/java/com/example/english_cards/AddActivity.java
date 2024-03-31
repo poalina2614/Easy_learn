@@ -6,16 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class Repeating extends AppCompatActivity {
+public class AddActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_repeating);
+        setContentView(R.layout.activity_add);
     }
-    public void back2(View view) {
-        Intent i = new Intent(Repeating.this, MainActivity.class);
-        i.putExtra("num", 1);
+    public void to_finish(View view) {
+        Intent i = new Intent(AddActivity.this, MainActivity.class);
+        i.putExtra("num", 2);
         startActivity(i);
     }
 }
