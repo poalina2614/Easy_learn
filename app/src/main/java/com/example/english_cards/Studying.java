@@ -13,7 +13,6 @@ public class Studying extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studying);
-        Toast.makeText(Studying.this, "its work", Toast.LENGTH_SHORT).show();
     }
 
     public void back(View view) {
