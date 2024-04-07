@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class AdapterForWords  extends ArrayAdapter<MyGroups> {
     public AdapterForWords(Context context, MyGroups[] arr) {
-        super(context, R.layout.word_ite, arr);
+        super(context, R.layout.adapter_word, arr);
     }
 
     @Override
@@ -18,7 +18,7 @@ public class AdapterForWords  extends ArrayAdapter<MyGroups> {
         final MyGroups groups = getItem(position);
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_item, null);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_word, null);
         }
 
 // Заполняем адаптер
