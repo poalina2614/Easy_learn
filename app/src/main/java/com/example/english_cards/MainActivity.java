@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +15,9 @@ import android.widget.Toast;
 import com.example.english_cards.databinding.ActivityMainBinding;
 import com.google.gson.Gson;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -29,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
         if (num_frag == 1) replaceFragment(new PractFragment());
         else if (num_frag == 2) replaceFragment(new CatalogFrag());
         else replaceFragment(new SettFragment());
-
-
+        Create_db();
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.practice:
@@ -52,6 +54,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void Create_db(){
+        String db = loadJson();
+        try {
+            FileOutputStream fos = openFileOutput("data.json", Context.MODE_PRIVATE);
+            fos.write(db.getBytes());
+            fos.close();
+            Toast.makeText(this, "ну тип всё оке", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Toast.makeText(this, "ну всё, это пиз..", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    String loadJson() {
+        String json = null;
+        try {
+            InputStream is = this.getAssets().open("data.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return json;
+    }
 
 
     public void to_study(View view) {
@@ -76,4 +106,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
 }

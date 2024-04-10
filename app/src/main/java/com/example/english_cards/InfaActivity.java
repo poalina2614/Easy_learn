@@ -57,7 +57,7 @@ public class InfaActivity extends AppCompatActivity {
     String loadJson() {
         String json = null;
         try {
-            InputStream is = this.getAssets().open("data.json");
+            InputStream is = openFileInput("data.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

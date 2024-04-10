@@ -2,17 +2,20 @@ package com.example.english_cards;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,14 +42,14 @@ public class AddActivity extends AppCompatActivity {
         LinkedTreeMap<String, LinkedTreeMap<String, String>> myGroups = gson.fromJson(loadJson(), LinkedTreeMap.class);
         String cat = (String) spinner.getSelectedItem();
         myGroups.get(cat).put(orig_word.getText().toString(), trans_word.getText().toString());
-        File file = new File("data.json");
-        try (FileWriter writer = new FileWriter(file)) {
-            writer.write(gson.toJson(myGroups));
-            writer.flush();
-        } catch (IOException ex) {
-            System.out.println(ex);
+        String json = gson.toJson(myGroups);
+        try {
+            FileOutputStream fos = openFileOutput("data.json", Context.MODE_PRIVATE);
+            fos.write(json.getBytes());
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
         Intent i = new Intent(AddActivity.this, MainActivity.class);
         i.putExtra("num", 2);
         startActivity(i);
@@ -69,7 +72,7 @@ public class AddActivity extends AppCompatActivity {
     String loadJson() {
         String json = null;
         try {
-            InputStream is = this.getAssets().open("data.json");
+            InputStream is = openFileInput("data.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

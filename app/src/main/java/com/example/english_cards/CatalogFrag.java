@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -61,19 +62,20 @@ public class CatalogFrag extends Fragment {
         return arr;
     }
 
+
     String loadJson() {
         String json = null;
         try {
-        InputStream is = getContext().getAssets().open("data.json");
-        int size = is.available();
-        byte[] buffer = new byte[size];
-        is.read(buffer);
-        is.close();
-        json = new String(buffer, "UTF-8");
+            InputStream is = getActivity().openFileInput("data.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
 
-    } catch (IOException ex) {
-        ex.printStackTrace();
-    }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         return json;
     }
 
