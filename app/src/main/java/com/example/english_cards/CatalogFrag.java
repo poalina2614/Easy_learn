@@ -1,5 +1,6 @@
 package com.example.english_cards;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import com.google.gson.Gson;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -49,6 +51,12 @@ public class CatalogFrag extends Fragment {
         Gson gson = new Gson();
         ArrayList<String> catArr = new ArrayList<>();
         HashMap<String, HashMap<String, String>> myGroups = gson.fromJson(loadJson(), HashMap.class);
+
+        if(myGroups==null) {
+            Create_db();
+            myGroups = gson.fromJson(loadJson(), HashMap.class);
+        }
+
         for (String key: myGroups.keySet()){
             catArr.add(key);
         }
@@ -60,6 +68,33 @@ public class CatalogFrag extends Fragment {
         }
 
         return arr;
+    }
+
+    public void Create_db(){
+        String db = Create_json();
+        try {
+            FileOutputStream fos = getActivity().openFileOutput("data.json", Context.MODE_PRIVATE);
+            fos.write(db.getBytes(StandardCharsets.UTF_8));
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    String Create_json() {
+        String json = null;
+        try {
+            InputStream is = getContext().getAssets().open("data.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return json;
     }
 
 

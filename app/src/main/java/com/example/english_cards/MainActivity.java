@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         if (num_frag == 1) replaceFragment(new PractFragment());
         else if (num_frag == 2) replaceFragment(new CatalogFrag());
         else replaceFragment(new SettFragment());
-        Create_db();
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.practice:
@@ -52,35 +51,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-    }
-
-    public void Create_db(){
-        String db = loadJson();
-        try {
-            FileOutputStream fos = openFileOutput("data.json", Context.MODE_PRIVATE);
-            fos.write(db.getBytes());
-            fos.close();
-            Toast.makeText(this, "ну тип всё оке", Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-            Toast.makeText(this, "ну всё, это пиз..", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
-    }
-
-    String loadJson() {
-        String json = null;
-        try {
-            InputStream is = this.getAssets().open("data.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return json;
     }
 
 
