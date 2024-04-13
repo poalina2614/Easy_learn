@@ -58,7 +58,10 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, Studying.class);
         startActivity(i);
     }
-
+    public void to_choose(View view) {
+        Intent i = new Intent(MainActivity.this, Choose.class);
+        startActivity(i);
+    }
     public void to_learn(View view) {
         Intent i = new Intent(MainActivity.this, Repeating.class);
         startActivity(i);

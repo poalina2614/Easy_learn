@@ -71,7 +71,9 @@ public class CatalogFrag extends Fragment {
     }
 
     public void Create_db(){
-        String db = Create_json();
+        String db = Create_json("data.json");
+        String like = Create_json("liked.json");
+        // создание списка категорий
         try {
             FileOutputStream fos = getActivity().openFileOutput("data.json", Context.MODE_PRIVATE);
             fos.write(db.getBytes(StandardCharsets.UTF_8));
@@ -79,12 +81,20 @@ public class CatalogFrag extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // создание выбранных категорий
+        try {
+            FileOutputStream fos = getActivity().openFileOutput("liked.json", Context.MODE_PRIVATE);
+            fos.write(like.getBytes(StandardCharsets.UTF_8));
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    String Create_json() {
+    String Create_json(String name) {
         String json = null;
         try {
-            InputStream is = getContext().getAssets().open("data.json");
+            InputStream is = getContext().getAssets().open(name);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
