@@ -15,7 +15,8 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pngwing" />
+        app:srcCompat="@drawable/pngwing"
+        android:onClick="back"/>
 
     <Button
         android:id="@+id/button2"
@@ -25,44 +26,52 @@
         android:layout_marginBottom="16dp"
         android:text="далее"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="nextWord"/>
 
     <TextView
         android:id="@+id/orig_word"
         android:layout_width="110dp"
         android:layout_height="45dp"
+        android:layout_marginTop="112dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.202"
+        app:layout_constraintHorizontal_bias="0.152"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="121dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/trans_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintHorizontal_bias="0.228"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="201dp" />
+        app:layout_constraintTop_toBottomOf="@+id/orig_word" />
 
     <Button
         android:id="@+id/check_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         android:text="проверить"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="312dp" />
+        app:layout_constraintTop_toBottomOf="@+id/trans_input"
+        android:onClick="to_check"/>
 
     <TextView
         android:id="@+id/check_ans"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="275dp"
+        android:layout_height="101dp"
+        android:layout_marginTop="44dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.338"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="393dp" />
+        app:layout_constraintTop_toBottomOf="@+id/check_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
