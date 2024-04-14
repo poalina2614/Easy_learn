@@ -2,9 +2,12 @@ package com.example.english_cards;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,9 +25,10 @@ import java.util.Locale;
 
 public class Studying extends AppCompatActivity {
     TextView orig, result;
-    Button check, next;
+    Button check;
     EditText trans;
     int this_num = 1;
+    int maxi = 9;
     HashMap<String, String> all_words;
     ArrayList<String> choise_arr = new ArrayList<>();
     @Override
@@ -35,26 +39,61 @@ public class Studying extends AppCompatActivity {
         trans = findViewById(R.id.trans_input);
         result = findViewById(R.id.check_ans);
         check = findViewById(R.id.check_btn);
-        next = findViewById(R.id.button2);
         all_words = get_words();
         ArrayList<String> arr = new ArrayList<>();
         for(String item: all_words.keySet()) arr.add(item);
         int n;
+        if(all_words.size()<9) maxi = all_words.size();
+        else maxi = 9;
         HashMap<String, String> checking = new HashMap<>();
-        for (int i =0; i<=10; i ++){
+        for (int i =0; i<maxi; i ++){
             n = (int) Math.floor(Math.random()*arr.size());
             choise_arr.add(arr.get(n));
             checking.put(arr.get(n), all_words.get(arr.get(n)));
             arr.remove(n);
         }
+        check.setEnabled(false);
         orig.setText(choise_arr.get(this_num));
+        trans.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                check.setEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                check.setEnabled(true);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.toString().equals(""))check.setEnabled(false);
+                else check.setEnabled(true);
+
+            }
+        });
 
     }
 
     public void back(View view) {
-        Intent i = new Intent(Studying.this, MainActivity.class);
-        i.putExtra("num", 1);
-        startActivity(i);
+        new AlertDialog.Builder(this)
+                .setMessage("Вы точно хотите уйти?")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton("да", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(Studying.this, MainActivity.class);
+                        i.putExtra("num", 1);
+                        startActivity(i);
+
+                        // Continue with delete operation
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton("нет", null)
+                .show();
     }
 
     HashMap<String, String> get_words(){
@@ -87,9 +126,21 @@ public class Studying extends AppCompatActivity {
         }
         return json;
     }
+    public void buttonchik(View view){
+        if(check.getText().toString().equals("проверить")){
+            to_check();
+            check.setText("далее");
+        }
+        else {
+            nextWord();
+            check.setText("проверить");
 
-    public void nextWord(View view){
-        if(this_num == 9){
+        }
+    }
+
+
+    public void nextWord(){
+        if(this_num == maxi){
             Intent i = new Intent(Studying.this, MainActivity.class);
             i.putExtra("num", 1);
             startActivity(i);
@@ -102,11 +153,11 @@ public class Studying extends AppCompatActivity {
 
         }
     }
-    public void to_check(View view){
+    public void to_check(){
         if(trans.getText().toString().toLowerCase(Locale.ROOT).equals(all_words.get(choise_arr.get(this_num)))) result.setText("маладечик все верно, можешь двигаться дальше");
         else {
             result.setText("эх, ты накосячала, вот правильный перевод: " + all_words.get(choise_arr.get(this_num)));
-            Toast.makeText(this, trans.getText().toString(), Toast.LENGTH_LONG).show();
         }
     }
+
 }

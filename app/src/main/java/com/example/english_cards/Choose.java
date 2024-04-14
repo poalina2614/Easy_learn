@@ -89,5 +89,10 @@ public class Choose extends AppCompatActivity {
         i.putExtra("num", 1);
         startActivity(i);
     }
+    public void to_back_ch(View view) {
+        Intent i = new Intent(Choose.this, MainActivity.class);
+        i.putExtra("num", 1);
+        startActivity(i);
+    }
 
 }

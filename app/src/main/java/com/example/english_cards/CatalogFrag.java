@@ -52,11 +52,6 @@ public class CatalogFrag extends Fragment {
         ArrayList<String> catArr = new ArrayList<>();
         HashMap<String, HashMap<String, String>> myGroups = gson.fromJson(loadJson(), HashMap.class);
 
-        if(myGroups==null) {
-            Create_db();
-            myGroups = gson.fromJson(loadJson(), HashMap.class);
-        }
-
         for (String key: myGroups.keySet()){
             catArr.add(key);
         }
@@ -68,43 +63,6 @@ public class CatalogFrag extends Fragment {
         }
 
         return arr;
-    }
-
-    public void Create_db(){
-        String db = Create_json("data.json");
-        String like = Create_json("liked.json");
-        // создание списка категорий
-        try {
-            FileOutputStream fos = getActivity().openFileOutput("data.json", Context.MODE_PRIVATE);
-            fos.write(db.getBytes(StandardCharsets.UTF_8));
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // создание выбранных категорий
-        try {
-            FileOutputStream fos = getActivity().openFileOutput("liked.json", Context.MODE_PRIVATE);
-            fos.write(like.getBytes(StandardCharsets.UTF_8));
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    String Create_json(String name) {
-        String json = null;
-        try {
-            InputStream is = getContext().getAssets().open(name);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return json;
     }
 
 

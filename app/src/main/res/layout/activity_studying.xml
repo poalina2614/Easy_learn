@@ -18,16 +18,6 @@
         app:srcCompat="@drawable/pngwing"
         android:onClick="back"/>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="далее"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="nextWord"/>
 
     <TextView
         android:id="@+id/orig_word"
@@ -62,16 +52,16 @@
         app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/trans_input"
-        android:onClick="to_check"/>
+        android:onClick="buttonchik"/>
 
     <TextView
         android:id="@+id/check_ans"
         android:layout_width="275dp"
         android:layout_height="101dp"
         android:layout_marginTop="44dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.338"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/check_btn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
