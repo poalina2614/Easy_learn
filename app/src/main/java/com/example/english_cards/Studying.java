@@ -154,9 +154,9 @@ public class Studying extends AppCompatActivity {
         }
     }
     public void to_check(){
-        if(trans.getText().toString().toLowerCase(Locale.ROOT).equals(all_words.get(choise_arr.get(this_num)))) result.setText("маладечик все верно, можешь двигаться дальше");
+        if(trans.getText().toString().toLowerCase(Locale.ROOT).equals(all_words.get(choise_arr.get(this_num)))) result.setText("Все верно))");
         else {
-            result.setText("эх, ты накосячала, вот правильный перевод: " + all_words.get(choise_arr.get(this_num)));
+            result.setText("Не совсем, вот правильный перевод: " + all_words.get(choise_arr.get(this_num)));
         }
     }
 

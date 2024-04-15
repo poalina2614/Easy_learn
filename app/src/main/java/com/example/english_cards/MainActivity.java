@@ -82,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, AddActivity.class);
         startActivity(i);
     }
+    public void to_add_cat(View view) {
+        Intent i = new Intent(MainActivity.this, AddCat.class);
+        startActivity(i);
+    }
 
     HashMap<String, String> get_words(){
         Gson gson = new Gson();
