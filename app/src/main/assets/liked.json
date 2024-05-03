@@ -1,8 +1,10 @@
 {
-  "food": false,
-  "nature": false,
-  "animals": false,
-  "home": false,
-  "body": false,
-  "family": false
+  "месяцы и времена года": false,
+  "семья": false,
+  "цвета": false,
+  "еда": false,
+  "дом": false,
+  "дни недели": false,
+  "животные": false,
+  "одежда": false
 }

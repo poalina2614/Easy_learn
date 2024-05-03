@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             FileOutputStream fos = openFileOutput("data.json", Context.MODE_PRIVATE);
             fos.write(db.getBytes(StandardCharsets.UTF_8));
             fos.close();
+            Toast.makeText(this, "ну он типо загрузил бд", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
         }

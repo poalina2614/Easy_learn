@@ -21,10 +21,10 @@
             android:id="@+id/study_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
             android:onClick="to_study"
             android:text="Учить слова"
-            android:textColor="#1E5788" />
+            android:backgroundTint="#FFFFFF"
+            android:textColor="@color/purple_700" />
 
         <Button
             android:id="@+id/repeat_btn"
@@ -33,7 +33,7 @@
             android:backgroundTint="#FFFFFF"
             android:onClick="to_learn"
             android:text="повторить слова"
-            android:textColor="#1E5787" />
+            android:textColor="@color/purple_700" />
 
         <Button
             android:id="@+id/choose_btn"
@@ -42,7 +42,7 @@
             android:backgroundTint="#FFFFFF"
             android:onClick="to_choose"
             android:text="выбрать категории"
-            android:textColor="#1E5787" />
+            android:textColor="@color/purple_700" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
