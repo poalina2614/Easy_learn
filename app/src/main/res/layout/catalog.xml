@@ -1,39 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".CatalogFrag"
     android:background="#E8E8E8"
-    >
+    android:orientation="vertical"
+    tools:context=".CatalogFrag">
 
 
-    <Button
-        android:id="@+id/add_btn"
-        android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:text="Добавить слово"
-        android:onClick="to_add"
-        android:backgroundTint="#FFFFFF"
-        android:textColor="@color/purple_700"/>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="272dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/add_cat_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Добавить категорию"
-        android:onClick="to_add_cat"
-        android:backgroundTint="#FFFFFF"
-        android:textColor="@color/purple_700"/>
+        <Button
+            android:id="@+id/add_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="to_add"
+            android:text="Добавить слово"
+            android:backgroundTint="#FFFFFF"
+            android:textColor="@color/purple_700" />
 
-    <ListView
-        android:id="@+id/cat_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#E8E8E8"
-        >
+        <Button
+            android:id="@+id/add_cat_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:onClick="to_add_cat"
+            android:text="Добавить категорию"
+            android:textColor="@color/purple_700" />
 
-    </ListView>
+    </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="318dp"
+        android:layout_height="538dp"
+        android:background="@drawable/layout_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.22">
+
+        <ListView
+            android:id="@+id/cat_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

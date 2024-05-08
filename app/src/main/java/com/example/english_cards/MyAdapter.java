@@ -26,6 +26,7 @@ public class MyAdapter extends ArrayAdapter<category> {
 
 // Заполняем адаптер
         ((TextView) convertView.findViewById(R.id.textView4)).setText(cate.name);
+        ((TextView) convertView.findViewById(R.id.count)).setText(cate.count);
         return convertView;
     }
 }

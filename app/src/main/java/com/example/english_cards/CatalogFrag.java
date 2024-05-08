@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class CatalogFrag extends Fragment {
     category[] MakeCategory ()  {
         Gson gson = new Gson();
         ArrayList<String> catArr = new ArrayList<>();
-        HashMap<String, HashMap<String, String>> myGroups = gson.fromJson(loadJson(), HashMap.class);
+        LinkedTreeMap<String, LinkedTreeMap<String, String>> myGroups = gson.fromJson(loadJson(), LinkedTreeMap.class);
 
         for (String key: myGroups.keySet()){
             catArr.add(key);
@@ -59,6 +60,9 @@ public class CatalogFrag extends Fragment {
         for (int i = 0; i < arr.length; i++) {
             category cate = new category();
             cate.name = catArr.get(i);
+            int words = myGroups.get(catArr.get(i)).size();
+            cate.count = words + " "+getWord(words);
+
             arr[i] = cate;
         }
 
@@ -82,5 +86,26 @@ public class CatalogFrag extends Fragment {
         return json;
     }
 
+
+    public static String getWord(int n) {
+        // смотрим две последние цифры
+        int result = n % 100;
+        if (result >=10 && result <= 20) {
+            // если окончание 11 - 20
+            return "слов";
+        }
+
+        // смотрим одну последнюю цифру
+        result = n % 10;
+        if (result == 0 || result > 4) {
+            return "слов";
+        }
+        if (result > 1) {
+            return "слова";
+        } if (result == 1) {
+            return "слово";
+        }
+        return null;
+    }
 
 }

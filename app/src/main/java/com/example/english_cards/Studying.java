@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -68,7 +70,9 @@ public class Studying extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(editable.toString().equals(""))check.setEnabled(false);
-                else check.setEnabled(true);
+                else {
+                    check.setEnabled(true);
+                }
 
             }
         });
@@ -154,9 +158,13 @@ public class Studying extends AppCompatActivity {
         }
     }
     public void to_check(){
-        if(trans.getText().toString().toLowerCase(Locale.ROOT).equals(all_words.get(choise_arr.get(this_num)))) result.setText("Все верно))");
+        if(trans.getText().toString().toLowerCase(Locale.ROOT).equals(all_words.get(choise_arr.get(this_num)))) {
+            result.setText("Правильно");
+            result.setTextColor(Color.parseColor("#138808"));
+        }
         else {
             result.setText("Не совсем, вот правильный перевод: " + all_words.get(choise_arr.get(this_num)));
+            result.setTextColor(Color.parseColor("#CC0605"));
         }
     }
 
