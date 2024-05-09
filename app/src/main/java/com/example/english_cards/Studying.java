@@ -19,18 +19,23 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Studying extends AppCompatActivity {
     TextView orig, result;
     Button check;
     EditText trans;
-    int this_num = 1;
-    int maxi = 9;
+    int this_num = 0;
+    int maxi, secondsCounter;
+    int grade = 0;
     HashMap<String, String> all_words;
     ArrayList<String> choise_arr = new ArrayList<>();
     @Override
@@ -45,8 +50,7 @@ public class Studying extends AppCompatActivity {
         ArrayList<String> arr = new ArrayList<>();
         for(String item: all_words.keySet()) arr.add(item);
         int n;
-        if(all_words.size()<9) maxi = all_words.size();
-        else maxi = 9;
+        maxi = Math.min(all_words.size(), 10);
         HashMap<String, String> checking = new HashMap<>();
         for (int i =0; i<maxi; i ++){
             n = (int) Math.floor(Math.random()*arr.size());
@@ -56,6 +60,19 @@ public class Studying extends AppCompatActivity {
         }
         check.setEnabled(false);
         orig.setText(choise_arr.get(this_num));
+
+
+        Timer timer = new Timer();
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                secondsCounter++;
+            }
+        };
+
+        timer.schedule(task, 0, 1000);
+
         trans.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -138,15 +155,18 @@ public class Studying extends AppCompatActivity {
         else {
             nextWord();
             check.setText("проверить");
+            trans.setEnabled(true);
+
 
         }
     }
 
 
     public void nextWord(){
-        if(this_num == maxi){
-            Intent i = new Intent(Studying.this, MainActivity.class);
-            i.putExtra("num", 1);
+        if(this_num == maxi - 1){
+            Intent i = new Intent(Studying.this, Result.class);
+            i.putExtra("result", grade);
+            i.putExtra("time", secondsCounter);
             startActivity(i);
         }
         else {
@@ -158,9 +178,15 @@ public class Studying extends AppCompatActivity {
         }
     }
     public void to_check(){
-        if(trans.getText().toString().toLowerCase(Locale.ROOT).equals(all_words.get(choise_arr.get(this_num)))) {
+        trans.setEnabled(false);
+        String answer = trans.getText().toString().toLowerCase(Locale.ROOT);
+        answer = answer.trim();
+        answer = answer.replaceAll("\\s+", " ");
+        int wrong = StringUtils.getLevenshteinDistance(answer, all_words.get(choise_arr.get(this_num)));
+        if(wrong < 3) {
             result.setText("Правильно");
             result.setTextColor(Color.parseColor("#138808"));
+            grade ++;
         }
         else {
             result.setText("Не совсем, вот правильный перевод: " + all_words.get(choise_arr.get(this_num)));

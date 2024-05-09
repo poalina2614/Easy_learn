@@ -32,34 +32,21 @@
         app:fontFamily="@font/amiko_bold"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.152"
+        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/trans_input"
-        android:hint="введите перевод слова"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.228"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orig_word" />
 
     <Button
         android:id="@+id/check_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:onClick="buttonchik"
         android:text="проверить"
         android:textColor="@color/purple_700"
         app:backgroundTint="@color/button_default"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/trans_input" />
 
@@ -67,13 +54,27 @@
         android:id="@+id/check_ans"
         android:layout_width="275dp"
         android:layout_height="101dp"
-        android:layout_marginTop="44dp"
-        android:textColor="@color/purple_700"
+        android:layout_marginTop="20dp"
         android:textSize="16sp"
+        android:textColor="@color/purple_700"
         app:fontFamily="@font/amiko_bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.338"
+        app:layout_constraintHorizontal_bias="0.33"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/check_btn" />
+
+    <EditText
+        android:id="@+id/trans_input"
+        android:layout_width="251dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="введите перевод слова"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.281"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orig_word" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#E8E8E8"
     tools:context=".Repeating" >
 
     <TextView
@@ -13,6 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:text="TextView"
+        android:textColor="@color/purple_700"
+        android:textSize="14sp"
+        app:fontFamily="@font/amiko_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +31,9 @@
         android:text="назад"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:onClick="last_w"/>
+        android:onClick="last_w"
+        app:backgroundTint="@color/button_default"
+        android:textColor="@color/purple_700" />
 
     <Button
         android:id="@+id/next_rep"
@@ -38,7 +44,9 @@
         android:text="вперед"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="nextWord"/>
+        android:onClick="nextWord"
+        app:backgroundTint="@color/button_default"
+        android:textColor="@color/purple_700" />
 
     <Button
         android:id="@+id/know_btn"
@@ -49,7 +57,9 @@
         android:text="Узнать перевод"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orig_rep"
-        android:onClick="to_get_trans"/>
+        android:onClick="to_get_trans"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="@color/purple_700" />
 
     <TextView
         android:id="@+id/trans_rep"
@@ -57,6 +67,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="52dp"
+        android:textColor="@color/purple_700"
+        android:textSize="14sp"
+        app:fontFamily="@font/amiko_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/know_btn" />
 
