@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -23,8 +24,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class InfaActivity extends AppCompatActivity implements
         TextToSpeech.OnInitListener {
@@ -42,7 +45,7 @@ public class InfaActivity extends AppCompatActivity implements
         TextView name = findViewById(R.id.name_txt);
         name.setText(msg);
 
-
+        sortHash();
         ListView lv = findViewById(R.id.word_list);
 
 
@@ -50,6 +53,18 @@ public class InfaActivity extends AppCompatActivity implements
         AdapterForWords adapter = new AdapterForWords(this, makeGroups(msg));
         lv.setAdapter(adapter);
         setOnClickListener(lv);
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent i = new Intent(InfaActivity.this, ReWord.class);
+                MyGroups word= (MyGroups) lv.getItemAtPosition(position);
+                i.putExtra("orig", word.orig);
+                i.putExtra("trans", word.trans);
+                i.putExtra("name", msg);
+                startActivity(i);
+                return false;
+            }
+        });
 
     }
 
@@ -70,7 +85,7 @@ public class InfaActivity extends AppCompatActivity implements
         Gson gson = new Gson();
         ArrayList<String> orig = new ArrayList<>();
         ArrayList<String> trans = new ArrayList<>();
-        LinkedTreeMap<String, LinkedTreeMap<String, String>> myGroups = gson.fromJson(loadJson(), LinkedTreeMap.class);
+        LinkedTreeMap<String, LinkedTreeMap<String, String>> myGroups = gson.fromJson(loadJson("data.json"), LinkedTreeMap.class);
         for (String item: myGroups.get(group).keySet()){
             orig.add(item);
             trans.add(myGroups.get(group).get(item));
@@ -88,6 +103,30 @@ public class InfaActivity extends AppCompatActivity implements
         return ans;
     }
 
+    private void sortHash() {
+        Gson gson = new Gson();
+        LinkedTreeMap<String, LinkedTreeMap<String, String>> myGroups = gson.fromJson(loadJson("data.json"), LinkedTreeMap.class);
+        LinkedTreeMap<String, String> thisGroup = myGroups.get(msg);
+        ArrayList<String> key = new ArrayList<>();
+        for (String item: thisGroup.keySet()){
+            key.add(item);
+        }
+        Collections.sort(key);
+        LinkedTreeMap<String, String> newGroups = new LinkedTreeMap<>();
+        for(int i = 0; i < key.size(); i ++){
+            newGroups.put(key.get(i), thisGroup.get(key.get(i)));
+        }
+        myGroups.replace(msg, newGroups);
+        String json = gson.toJson(myGroups);
+        try {
+            FileOutputStream fos = openFileOutput("data.json", Context.MODE_PRIVATE);
+            fos.write(json.getBytes());
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void delete(View view) {
         new AlertDialog.Builder(this)
                 .setMessage("Вы точно хотите удалить этот каталог?")
@@ -97,11 +136,23 @@ public class InfaActivity extends AppCompatActivity implements
                 .setPositiveButton("да", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Gson gson = new Gson();
-                        LinkedTreeMap<String, LinkedTreeMap<String, String>> myGroups = gson.fromJson(loadJson(), LinkedTreeMap.class);
+                        LinkedTreeMap<String, LinkedTreeMap<String, String>> myGroups = gson.fromJson(loadJson("data.json"), LinkedTreeMap.class);
                         myGroups.remove(msg);
                         String json = gson.toJson(myGroups);
                         try {
                             FileOutputStream fos = openFileOutput("data.json", Context.MODE_PRIVATE);
+                            fos.write(json.getBytes());
+                            fos.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        LinkedTreeMap<String, Boolean> like = gson.fromJson(loadJson("liked.json"), LinkedTreeMap.class);
+                        like.remove(msg);
+                        json = gson.toJson(like);
+                        try {
+                            FileOutputStream fos = openFileOutput("liked.json", Context.MODE_PRIVATE);
                             fos.write(json.getBytes());
                             fos.close();
                         } catch (IOException e) {
@@ -120,10 +171,16 @@ public class InfaActivity extends AppCompatActivity implements
                 .show();
     }
 
-    String loadJson() {
+    public void change(View view){
+        Intent i = new Intent(InfaActivity.this, ChangeCat.class);
+        i.putExtra("group", msg);
+        startActivity(i);
+    }
+
+    String loadJson(String name) {
         String json = null;
         try {
-            InputStream is = openFileInput("data.json");
+            InputStream is = openFileInput(name);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

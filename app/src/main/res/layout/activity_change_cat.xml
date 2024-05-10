@@ -5,44 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E8E8E8"
-    tools:context=".AddCat">
+    tools:context=".ChangeCat">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:onClick="to_back_cat"
+        android:backgroundTint="#E8E8E8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pngwing" />
+        app:srcCompat="@drawable/pngwing"
+        android:onClick="to_infa"/>
 
-    <EditText
-        android:id="@+id/new_cat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:hint="категория"
-        android:inputType="textPersonName"
-        android:textColor="@color/purple_700"
-        app:fontFamily="@font/amiko_bold"
+    <LinearLayout
+        android:layout_width="316dp"
+        android:layout_height="553dp"
+        android:layout_marginTop="88dp"
+        android:background="@drawable/layout_bg"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ListView
+            android:id="@+id/del_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <Button
-        android:id="@+id/fin_cat_btn"
+        android:id="@+id/del_word_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="добавить"
+        android:backgroundTint="#FFFFFF"
+        android:text="удалить выбранные слова"
+        android:textColor="@color/purple_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="#FFFFFF"
-        android:textColor="@color/purple_700"
-        android:onClick="to_fin_cat"/>
+        android:onClick="to_del_word" />
 </androidx.constraintlayout.widget.ConstraintLayout>

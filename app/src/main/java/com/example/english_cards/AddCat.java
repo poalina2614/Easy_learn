@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -19,11 +20,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class AddCat extends AppCompatActivity {
     Button addCat;
     EditText category;
-    TextView status;
     HashMap<String, HashMap<String, String>> all_words;
 
     @Override
@@ -32,7 +33,6 @@ public class AddCat extends AppCompatActivity {
         setContentView(R.layout.activity_add_cat);
         addCat = findViewById(R.id.fin_cat_btn);
         category = findViewById(R.id.new_cat);
-        status = findViewById(R.id.warning);
         Gson gson = new Gson();
         all_words = gson.fromJson(loadJson("data.json"), HashMap.class);
         category.addTextChangedListener(new TextWatcher() {
@@ -80,18 +80,34 @@ public class AddCat extends AppCompatActivity {
     }
 
     public void to_fin_cat(View view) {
-        if(all_words.containsKey(category.getText().toString())) {
-            status.setText("такая категория уже есть");
+        String ans = category.getText().toString().toLowerCase(Locale.ROOT);
+        ans = ans.trim();
+        ans=ans.replaceAll("\\p{Punct}", "");
+        if(all_words.containsKey(ans)) {
+            Toast.makeText(this, "такая категория уже есть", Toast.LENGTH_SHORT).show();
             addCat.setEnabled(false);
         }
+        else if (ans.equals("")) Toast.makeText(this, "вы не заполнили поля", Toast.LENGTH_SHORT).show();
         else {
             Gson gson = new Gson();
             HashMap<String, HashMap<String, String>> all_words = gson.fromJson(loadJson("data.json"), HashMap.class);
-            all_words.put(category.getText().toString(), new HashMap<String, String>());
+            all_words.put(ans, new HashMap<String, String>());
             String json = gson.toJson(all_words);
             try {
                 FileOutputStream fos = openFileOutput("data.json", Context.MODE_PRIVATE);
                 fos.write(json.getBytes());
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            HashMap<String, Boolean> like = gson.fromJson(loadJson("liked.json"), HashMap.class);
+            like.put(ans, false);
+            String json1 = gson.toJson(like);
+            try {
+                FileOutputStream fos = openFileOutput("liked.json", Context.MODE_PRIVATE);
+                fos.write(json1.getBytes());
                 fos.close();
             } catch (IOException e) {
                 e.printStackTrace();

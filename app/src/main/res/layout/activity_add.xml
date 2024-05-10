@@ -67,6 +67,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pngwing" />
+        app:srcCompat="@drawable/pngwing"
+        android:onClick="to_catalog"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

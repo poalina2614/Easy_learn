@@ -21,8 +21,10 @@ public class Result extends AppCompatActivity {
         int mm = timer/60;
         int ss = timer - mm*60;
         grade.setText(result+"%");
-        if (mm < 10) time.setText("0" + mm + ":" + ss);
-        else time.setText(mm + ":" + ss);
+        String ans_tm = mm+"";
+        if (ss<10) ans_tm += ":0" + ss;
+        else ans_tm += ":" + ss;
+        time.setText(ans_tm);
     }
 
 
