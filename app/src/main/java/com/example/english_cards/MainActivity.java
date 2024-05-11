@@ -33,11 +33,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         num_frag = getIntent().getIntExtra("num", 1);
-        if (num_frag == 1) replaceFragment(new PractFragment());
-        else if (num_frag == 2) {
-            replaceFragment(new CatalogFrag());
-        }
-        else replaceFragment(new SettFragment());
         Gson gson = new Gson();
         HashMap<String, HashMap<String, String>> myGroups = gson.fromJson(loadJson("data.json"), HashMap.class);
         if(myGroups==null) {
@@ -58,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+
+        if (num_frag == 1) replaceFragment(new PractFragment());
+        else if (num_frag == 2) {
+            replaceFragment(new CatalogFrag());
+        }
+        else replaceFragment(new SettFragment());
     }
 
 
