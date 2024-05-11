@@ -72,6 +72,8 @@
         android:gravity="start|top"
         android:hint="введите перевод слова"
         android:inputType="textMultiLine"
+        android:textColor="@color/purple_700"
+        app:fontFamily="@font/amiko_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.281"
         app:layout_constraintStart_toStartOf="parent"

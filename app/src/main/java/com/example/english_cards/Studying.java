@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class Studying extends AppCompatActivity {
     int grade = 0;
     HashMap<String, String> all_words;
     ArrayList<String> choise_arr = new ArrayList<>();
+    HashMap<String, String> checking;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +48,23 @@ public class Studying extends AppCompatActivity {
         trans = findViewById(R.id.trans_input);
         result = findViewById(R.id.check_ans);
         check = findViewById(R.id.check_btn);
-        all_words = get_words();
+        all_words = get_words(); // тут список всех слов, которые выбраны
         ArrayList<String> arr = new ArrayList<>();
         for(String item: all_words.keySet()) arr.add(item);
-        int n;
+        int n, vid;
         maxi = Math.min(all_words.size(), 10);
-        HashMap<String, String> checking = new HashMap<>();
+        checking = new HashMap<>();
         for (int i =0; i<maxi; i ++){
             n = (int) Math.floor(Math.random()*arr.size());
-            choise_arr.add(arr.get(n));
-            checking.put(arr.get(n), all_words.get(arr.get(n)));
+            vid = (int) Math.floor(Math.random()*2);
+            if(vid == 0) {
+                choise_arr.add(arr.get(n));
+                checking.put(arr.get(n), all_words.get(arr.get(n)));
+            }
+            else {
+                choise_arr.add(all_words.get(arr.get(n)));
+                checking.put(all_words.get(arr.get(n)), arr.get(n));
+            }
             arr.remove(n);
         }
         check.setEnabled(false);
@@ -147,6 +156,7 @@ public class Studying extends AppCompatActivity {
         }
         return json;
     }
+
     public void buttonchik(View view){
         if(check.getText().toString().equals("проверить")){
             to_check();
@@ -160,7 +170,6 @@ public class Studying extends AppCompatActivity {
 
         }
     }
-
 
     public void nextWord(){
         if(this_num == maxi - 1){
@@ -177,19 +186,20 @@ public class Studying extends AppCompatActivity {
 
         }
     }
+
     public void to_check(){
         trans.setEnabled(false);
         String answer = trans.getText().toString().toLowerCase(Locale.ROOT);
         answer = answer.trim();
         answer = answer.replaceAll("\\s+", " ");
-        int wrong = StringUtils.getLevenshteinDistance(answer, all_words.get(choise_arr.get(this_num)));
+        int wrong = StringUtils.getLevenshteinDistance(answer, checking.get(choise_arr.get(this_num)));
         if(wrong < 3) {
             result.setText("Правильно");
             result.setTextColor(Color.parseColor("#138808"));
             grade ++;
         }
         else {
-            result.setText("Не совсем, вот правильный перевод: " + all_words.get(choise_arr.get(this_num)));
+            result.setText("Не совсем, вот правильный перевод: " + checking.get(choise_arr.get(this_num)));
             result.setTextColor(Color.parseColor("#CC0605"));
         }
     }

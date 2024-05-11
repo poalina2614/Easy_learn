@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -33,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         num_frag = getIntent().getIntExtra("num", 1);
         if (num_frag == 1) replaceFragment(new PractFragment());
-        else if (num_frag == 2) replaceFragment(new CatalogFrag());
+        else if (num_frag == 2) {
+            replaceFragment(new CatalogFrag());
+        }
         else replaceFragment(new SettFragment());
-
         Gson gson = new Gson();
         HashMap<String, HashMap<String, String>> myGroups = gson.fromJson(loadJson("data.json"), HashMap.class);
         if(myGroups==null) {
@@ -130,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
     String Create_json(String name) {
         String json = null;
         try {
@@ -146,8 +147,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return json;
     }
-
-
     String loadJson(String name) {
         String json = null;
         try {

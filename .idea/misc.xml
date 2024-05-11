@@ -23,6 +23,7 @@
         <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/activity_choose.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/activity_finish.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/activity_infa.xml" value="0.36666666666666664" />
+        <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/activity_nothing.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/activity_re_word.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/activity_repeating.xml" value="0.36666666666666664" />
@@ -33,7 +34,9 @@
         <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/adapter_word.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/catalog.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/practcing.xml" value="0.36666666666666664" />
+        <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/settings.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/layout/spinner_item.xml" value="0.365625" />
+        <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/menu/bottom_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudioProjects/Easy_learn2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.362" />
         <entry key="..\:/AndroidStudioProjects/English_cards/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.167" />
         <entry key="..\:/AndroidStudioProjects/English_cards/app/src/main/res/drawable/back_black.xml" value="0.3075" />
