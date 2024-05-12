@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         HashMap<String, String> words = get_words();
         if(words.isEmpty()) {
             Intent i = new Intent(MainActivity.this, Nothing.class);
+            i.putExtra("who", "study");
             startActivity(i);
         }
         else {
@@ -78,8 +81,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
     public void to_learn(View view) {
-        Intent i = new Intent(MainActivity.this, Repeating.class);
-        startActivity(i);
+        HashMap<String, String> words = get_words();
+        if(words.isEmpty()) {
+            Intent i = new Intent(MainActivity.this, Nothing.class);
+            i.putExtra("who", "repeat");
+            startActivity(i);
+        }
+        else {
+            Intent i = new Intent(MainActivity.this, Repeating.class);
+            startActivity(i);
+        }
+
     }
     public void to_add(View view) {
         Intent i = new Intent(MainActivity.this, AddActivity.class);
@@ -89,6 +101,33 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, AddCat.class);
         startActivity(i);
     }
+
+    public void about_pr(View view) {
+        Intent i = new Intent(MainActivity.this, AboutPr.class);
+        startActivity(i);
+
+    }
+
+    public void to_clear (View view) {
+        new AlertDialog.Builder(this)
+                .setMessage("Вы точно хотите отчистить каталог? Останутся только первоначальные темы.")
+
+                .setPositiveButton("да", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Create_db();
+                    }
+                })
+
+                .setNegativeButton("нет", null)
+                .show();
+
+    }
+
+    public void to_sett(View view) {
+        Intent i = new Intent(MainActivity.this, SettActivity.class);
+        startActivity(i);
+    }
+
 
     HashMap<String, String> get_words(){
         Gson gson = new Gson();
