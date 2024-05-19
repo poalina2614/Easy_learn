@@ -1,11 +1,17 @@
 package com.example.english_cards;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,11 +29,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.time.Clock;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     public int num_frag = 1;
+    private static final int NOTIFY_ID = 101;
+
+    // Идентификатор канала
+    private static String CHANNEL_ID = "Cat channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
         num_frag = getIntent().getIntExtra("num", 1);
         Gson gson = new Gson();
         HashMap<String, HashMap<String, String>> myGroups = gson.fromJson(loadJson("data.json"), HashMap.class);
+//        Clock clock = Clock.systemDefaultZone();
+//        addAlarmNotification(clock.millis(), "Напоминание", "Нужно поучить слова!");
+
+
+
+
         if(myGroups==null) {
             Create_db();
         }
@@ -123,11 +140,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void to_sett(View view) {
-        Intent i = new Intent(MainActivity.this, SettActivity.class);
-        startActivity(i);
-    }
-
 
     HashMap<String, String> get_words(){
         Gson gson = new Gson();
@@ -201,6 +213,21 @@ public class MainActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
         return json;
+    }
+
+    private void addAlarmNotification(long startTime, String title, String text){
+        AlarmManager alarmManager;
+
+        PendingIntent alarmIntent;
+
+        alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        intent.putExtra("title", title);
+        intent.putExtra("text", text);
+        alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), (int)startTime, intent, PendingIntent.FLAG_IMMUTABLE);
+
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, startTime, alarmIntent);
     }
 
 }
